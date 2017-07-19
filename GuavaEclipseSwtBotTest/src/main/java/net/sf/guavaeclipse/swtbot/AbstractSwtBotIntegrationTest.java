@@ -80,7 +80,7 @@ public abstract class AbstractSwtBotIntegrationTest {
     try {
     bot.toolbarButtonWithTooltip("Oomph preference recorder enabled - Push to disable").click();
     } catch (Throwable t) {
-      t.printStackTrace();
+      //t.printStackTrace();
     }
     
     try {
@@ -94,7 +94,7 @@ public abstract class AbstractSwtBotIntegrationTest {
     bot.button("Apply").click();
     waitForPreferencesShell();
     } catch (Throwable t) {
-      t.printStackTrace();
+      //t.printStackTrace();
     }
 
 
@@ -116,7 +116,11 @@ public abstract class AbstractSwtBotIntegrationTest {
 //    bot.button("OK").click();
 //    bot.button("Apply").click();
     
+    try {
     bot.button("OK").click();
+    } catch (Throwable t) {
+      //t.printStackTrace();
+    }
     bot.waitUntil(Conditions.shellCloses(shell));
   }
   
@@ -213,6 +217,36 @@ public abstract class AbstractSwtBotIntegrationTest {
 
     SWTBotCheckBox checkBox =
         bot.checkBox("Use MoreObjects in toString Method (requires guava 18.0)");
+    checkBox.setFocus();
+    if (checkBox.isChecked()) {
+      checkBox.click();
+    }
+    waitForPreferencesShell();
+
+    bot.button("OK").click();
+    bot.waitUntil(Conditions.shellCloses(shell));
+  }
+  
+  protected static void selectJavaUtilObjects() {
+    SWTBotShell shell = openGuavaPreferences();
+
+    SWTBotCheckBox checkBox =
+        bot.checkBox("Use java.util.Objects in hashCode and equals Methods (requires Java 7 or above)");
+    checkBox.setFocus();
+    if (!checkBox.isChecked()) {
+      checkBox.click();
+    }
+    waitForPreferencesShell();
+
+    bot.button("OK").click();
+    bot.waitUntil(Conditions.shellCloses(shell));
+  }
+
+  protected static void deselectJavaUtilObjects() {
+    SWTBotShell shell = openGuavaPreferences();
+
+    SWTBotCheckBox checkBox =
+        bot.checkBox("Use java.util.Objects in hashCode and equals Methods (requires Java 7 or above)");
     checkBox.setFocus();
     if (checkBox.isChecked()) {
       checkBox.click();

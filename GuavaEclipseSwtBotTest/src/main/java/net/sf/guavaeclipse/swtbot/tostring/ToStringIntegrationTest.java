@@ -24,9 +24,6 @@ import static org.junit.Assert.assertThat;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import net.sf.guavaeclipse.swtbot.AbstractSwtBotIntegrationTest;
-
-import org.eclipse.swt.SWT;
 import org.eclipse.swtbot.eclipse.finder.waits.Conditions;
 import org.eclipse.swtbot.eclipse.finder.widgets.SWTBotEclipseEditor;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
@@ -36,6 +33,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
+
+import net.sf.guavaeclipse.swtbot.AbstractSwtBotIntegrationTest;
 
 @RunWith(SWTBotJunit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -103,7 +102,7 @@ public class ToStringIntegrationTest extends AbstractSwtBotIntegrationTest {
     sleep();
 
     SWTBotEclipseEditor cutEditor = setClassContent("SampleSimple_Overwrite_ToString", 9);
-    cutEditor.pressShortcut(SWT.CTRL | SWT.SHIFT, '4');
+    executePluginMethod(cutEditor, TO_STRING);
 
     assertNotNull(bot.label("toString() method already present. Replace it?"));
     bot.button("Yes").click();

@@ -24,6 +24,7 @@ import static net.sf.guavaeclipse.preferences.UserPreferencePage.HIDE_COMPARE_TO
 import static net.sf.guavaeclipse.preferences.UserPreferencePage.INSTANCEOF_CLASSEQUALS_PREFERENCE;
 import static net.sf.guavaeclipse.preferences.UserPreferencePage.MORE_OBJECTS_PREFERENCE;
 import static net.sf.guavaeclipse.preferences.UserPreferencePage.SUPERCALL_STRATEGY_PREFERENCE;
+import static net.sf.guavaeclipse.preferences.UserPreferencePage.JAVA_UTIL_OBJECTS_PREFERENCE;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -81,4 +82,10 @@ public final class UserPreferenceUtil {
     return CompareToCommentsType.valueOf(a);
   }
 
+  public static Boolean useJavaUtilObjects() {
+    IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+    String a = store.getString(JAVA_UTIL_OBJECTS_PREFERENCE);
+    return Boolean.valueOf(a);
+  }
+  
 }

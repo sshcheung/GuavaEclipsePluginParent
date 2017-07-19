@@ -79,6 +79,9 @@ public class EqualsMethodCreator extends AbstractEqualsHashCodeMethodCreator {
         }
         content.append(")");
         useArrays = true;
+      } else if (useJavaUtilObjects) {
+        content.append("Objects.equals(this.").append(getGetterOrField(field)).append(", that.")
+          .append(getGetterOrField(field)).append(")");
       } else {
         content.append("Objects.equal(this.").append(getGetterOrField(field)).append(", that.")
             .append(getGetterOrField(field)).append(")");

@@ -45,6 +45,8 @@ public class HashCodeMethodCreator extends AbstractEqualsHashCodeMethodCreator {
     content.append("public int hashCode(){\n");
     if (hcst == ARRAYS_DEEP_HASH_CODE) {
       content.append("   return Arrays.deepHashCode(new Object[] {");
+    } else if (useJavaUtilObjects) {
+      content.append("   return Objects.hash(");
     } else {
       content.append("   return Objects.hashCode(");
     }

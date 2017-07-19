@@ -29,14 +29,18 @@ import org.eclipse.jdt.core.JavaModelException;
 
 public abstract class AbstractEqualsHashCodeMethodCreator extends AbstractMethodCreator {
 
+  protected static final String IMPORT_DECL_JAVA_UTIL_OBJECTS = "java.util.Objects";
+    
   protected final EqualsEqualityType eet;
   protected final FieldsGetterType fgt;
+  protected final boolean useJavaUtilObjects;
 
   public AbstractEqualsHashCodeMethodCreator(MethodInsertionPoint insertionPoint,
       List<String> fields) throws JavaModelException {
     super(insertionPoint, fields);
     this.eet = UserPreferenceUtil.getEqualsEqualityType();
     this.fgt = UserPreferenceUtil.getFieldsOrGetterType();
+    this.useJavaUtilObjects = UserPreferenceUtil.useJavaUtilObjects();
   }
 
   protected String getGetterOrField(String fieldName) {
@@ -61,5 +65,10 @@ public abstract class AbstractEqualsHashCodeMethodCreator extends AbstractMethod
     bu.append(field.substring(0, 1).toUpperCase());
     bu.append(field.substring(1, field.length()));
     return bu.toString();
+  }
+  
+  @Override
+  protected String getPackageToImport() {
+      return useJavaUtilObjects ? IMPORT_DECL_JAVA_UTIL_OBJECTS : super.getPackageToImport();
   }
 }
